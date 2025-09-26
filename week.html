@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click Game</title>
+  <style>
+    body { text-align: center; font-family: Arial, sans-serif; background: #f0f0f0; }
+    h1 { color: #333; }
+    #score, #best { font-size: 24px; margin: 10px; }
+    button { padding: 15px 30px; font-size: 18px; margin: 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>🎮 Click the Button!</h1>
+  <div id="score">Score: 0</div>
+  <div id="best">Best Score: 0</div>
+  <button id="clickBtn">Click Me!</button>
+  <br>
+  <button onclick="TelegramGameProxy.shareScore()">📤 Share Score</button>
+
+  <script>
+    let score = 0;
+    let bestScore = localStorage.getItem("bestScore") || 0;
+
+    const scoreEl = document.getElementById("score");
+    const bestEl = document.getElementById("best");
+    const btn = document.getElementById("clickBtn");
+
+    bestEl.textContent = "Best Score: " + bestScore;
+
+    btn.addEventListener("click", () => {
+      score++;
+      scoreEl.textContent = "Score: " + score;
+
+      if (score > bestScore) {
+        bestScore = score;
+        localStorage.setItem("bestScore", bestScore);
+        bestEl.textContent = "Best Score: " + bestScore;
+      }
+    });
+  </script>
+
+    
+  <script src="https://telegram.org/js/games.js"></script>
+</body>
+</html>
